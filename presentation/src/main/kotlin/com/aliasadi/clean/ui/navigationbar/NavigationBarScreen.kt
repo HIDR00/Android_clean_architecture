@@ -43,7 +43,6 @@ fun NavigationBarScreen(
                     mainRouter.navigateToSearch()
                 }
             )
-
         },
         bottomBar = {
             BottomNavigationBar(

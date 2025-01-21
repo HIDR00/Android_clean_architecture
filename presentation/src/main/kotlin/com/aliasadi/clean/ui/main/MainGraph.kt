@@ -59,5 +59,13 @@ fun MainGraph(
                 viewModel = viewModel,
             )
         }
+
+        composableHorizontalSlide<Page.MovieDetails> {
+            val viewModel = hiltViewModel<MovieDetailsViewModel>()
+            MovieDetailsPage(
+                mainNavController = mainNavController,
+                viewModel = viewModel,
+            )
+        }
     }
 }
