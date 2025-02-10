@@ -27,6 +27,7 @@ class MainActivity : ComponentActivity() {
 
     companion object {
         const val DARK_MODE = "dark_mode"
+        const val IS_FIRST_LAUNCH_APP = "is_fisrt_launch_app"
     }
 
     @Inject
@@ -37,6 +38,8 @@ class MainActivity : ComponentActivity() {
     lateinit var networkMonitor: NetworkMonitor
 
     private fun isDarkModeEnabled() = appSettings.getBoolean(DARK_MODE, false)
+
+    private fun isFirstLaunchApp() = appSettings.getBoolean(IS_FIRST_LAUNCH_APP, true)
 
     private fun enableDarkMode(enable: Boolean) = appSettings.edit().putBoolean(DARK_MODE, enable).commit()
 
@@ -64,7 +67,8 @@ class MainActivity : ComponentActivity() {
                             val updated = !darkMode
                             enableDarkMode(updated)
                             darkMode = updated
-                        }
+                        },
+                        isFirstLaunchApp()
                     )
                 }
             }

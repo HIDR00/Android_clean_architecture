@@ -17,6 +17,9 @@ sealed class Page {
 
     @Serializable
     data class MovieDetails(val movieId: Int) : Page()
+
+    @Serializable
+    data object OnBoard : Page()
 }
 
 sealed class Graph {

@@ -9,6 +9,8 @@ import com.aliasadi.clean.navigation.Graph
 import com.aliasadi.clean.navigation.Page
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsPage
 import com.aliasadi.clean.ui.moviedetails.MovieDetailsViewModel
+import com.aliasadi.clean.ui.onboard.OnBoardPage
+import com.aliasadi.clean.ui.onboard.OnBoardViewModel
 import com.aliasadi.clean.ui.navigationbar.NavigationBarNestedGraph
 import com.aliasadi.clean.ui.navigationbar.NavigationBarScreen
 import com.aliasadi.clean.ui.search.SearchPage
@@ -20,11 +22,12 @@ import com.aliasadi.clean.util.sharedViewModel
 fun MainGraph(
     mainNavController: NavHostController,
     darkMode: Boolean,
-    onThemeUpdated: () -> Unit
+    onThemeUpdated: () -> Unit,
+    isFirstLaunchApp: Boolean
 ) {
     NavHost(
         navController = mainNavController,
-        startDestination = Page.NavigationBar,
+        startDestination = if (isFirstLaunchApp) Page.OnBoard else Page.NavigationBar,
         route = Graph.Main::class
     ) {
         composableHorizontalSlide<Page.NavigationBar> { backStack ->
@@ -60,10 +63,10 @@ fun MainGraph(
             )
         }
 
-        composableHorizontalSlide<Page.MovieDetails> {
-            val viewModel = hiltViewModel<MovieDetailsViewModel>()
-            MovieDetailsPage(
-                mainNavController = mainNavController,
+        composableHorizontalSlide<Page.OnBoard> {
+            val viewModel = hiltViewModel<OnBoardViewModel>()
+            OnBoardPage(
+                mainRouter = MainRouter(mainNavController),
                 viewModel = viewModel,
             )
         }
